@@ -58,11 +58,11 @@ class CardElasticSearch extends CardElastic
             $key = Card::CARD_CACHE_VIEWS . $model->id;
 			
             $views = \Yii::$app->cache->get($key);
-			if(!$views){
+			/*if(!$views){
 				$from_db = Card::findOne($model->id);
 				$views = $from_db->views;
 				\Yii::$app->cache->set($key, $views);
-			}
+			}*/
             $model->views = $views ? $views : 0; 
         }    
         $provider->setModels($models);

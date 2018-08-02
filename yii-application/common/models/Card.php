@@ -62,9 +62,9 @@ class Card extends \yii\db\ActiveRecord
     public function view_increase()
     {    
         $cache_key = self::CARD_CACHE_VIEWS . $this->id;
-        $cur_count = \Yii::$app->cache->get($key);
+        $cur_count = \Yii::$app->cache->get($cache_key);
         $views = $cur_count ? $cur_count + 1 : 1;
         $this->views = $views; // обновляем просмотры в БД
-        \Yii::$app->cache->set($key, $views);
+        \Yii::$app->cache->set($cache_key, $views);
     }
 }
