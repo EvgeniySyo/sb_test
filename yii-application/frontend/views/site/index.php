@@ -15,7 +15,7 @@ $this->title = 'My Yii Application';
     </div>
 
     <div class="body-content">
-
+<p><a class="btn btn-lg btn-success" href="/cards/">Cards List</a></p>
         <div class="row">
             <div class="col-lg-4">
                 <h2>Heading</h2>

@@ -15,7 +15,9 @@ use Yii;
  */
 class Card extends \yii\db\ActiveRecord
 {
-    /**
+    const CARD_CACHE_VIEWS = 'card_views_';
+	
+	/**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -29,7 +31,7 @@ class Card extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'description', 'image'], 'required'],
+            [['title', 'description'], 'required'],
             [['description'], 'string'],
             [['views'], 'integer'],
             [['title', 'image'], 'string', 'max' => 255],
@@ -48,5 +50,20 @@ class Card extends \yii\db\ActiveRecord
             'image' => 'Image',
             'views' => 'Views',
         ];
+    }
+	
+	/**
+     * Увеличение просмотров для карточки
+     *
+	 * Просмотры так же заносятся в кэш для актуальности при выборке из elastic
+     * @return void
+     */
+    public function view_increase()
+    {    
+        $cache_key = self::CARD_CACHE_VIEWS . $this->id;
+        $cur_count = \Yii::$app->cache->get($key);
+        $views = $cur_count ? $cur_count + 1 : 1;
+        $this->views = $views; // обновляем просмотры в БД
+        \Yii::$app->cache->set($key, $views);
     }
 }
