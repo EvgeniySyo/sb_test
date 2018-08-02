@@ -34,7 +34,8 @@ class Card extends \yii\db\ActiveRecord
             [['title', 'description'], 'required'],
             [['description'], 'string'],
             [['views'], 'integer'],
-            [['title', 'image'], 'string', 'max' => 255],
+            [['title'], 'string', 'max' => 255],
+			[['image'], 'string', 'max' => 255],
         ];
     }
 

@@ -118,3 +118,22 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.card-list{margin-bottom:20px;border-bottom:1px #ccc solid;}
+.card-list-img{display:inline-block;box-sizing:border-box;padding-right:15px;max-width:24%;vertical-align:top;}
+.card-list-img img{max-width:100%;max-height:300px;}
+.card-list-actions{padding-top:10px;}
+
+.card-list-data{display:inline-block;box-sizing:border-box;max-width:75%;vertical-align:top;}
+.card-list-data h2{margin-top:0px;}
+
+.card-img{display:inline-block;box-sizing:border-box;padding-right:15px;width:49%;vertical-align:top;}
+.card-img img{max-width:100%;height:auto;}
+
+.card-data{display:inline-block;box-sizing:border-box;width:50%;vertical-align:top;}
+
+.card-old_img{padding:20px 0px;}
+.card-old_img img{max-width:200px;max-height:200px;}
+
+.card-search .form-group{display:inline-block;}
+.card-search input[type=text]{width:300px;}

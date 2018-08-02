@@ -22,8 +22,6 @@ class CardImageHelper extends Model{
 		if($this->validate()){
 			$fname = empty($id) ? $this->image->baseName : $id;
 			$fname .= ".".strtolower($this->image->extension);
-			//{$this->image->baseName}.{$this->image->extension}
-			//print_r($this->image);
 			$this->image->saveAs(\Yii::getAlias('@webroot')."/images/".$fname);
 			return($fname);
 		}else{

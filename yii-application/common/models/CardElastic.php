@@ -40,7 +40,7 @@ class CardElastic extends \yii\elasticsearch\ActiveRecord
     public function rules() 
     {
         return [
-            [$this->attributes(), 'safe']  
+            [$this->attributes(), 'safe'] //'safe'  
         ];
     }
 }

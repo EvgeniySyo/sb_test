@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\HtmlPurifier;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Card */
@@ -14,26 +15,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
+    <div class="card-img">
+		<img src="<?php echo $model->image ? "/images/".$model->image : '/css/images/no-image.jpg'; ?>" alt="">
+	</div>
+	<div class="card-data">
+	<p><?= HtmlPurifier::process($model->description) ?></p>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            'title',
-            'description',
+            //'title',
+            //'description',
             'views',
-			'image',
+			//'image',
         ],
     ]) ?>
+	</div>
 
 </div>

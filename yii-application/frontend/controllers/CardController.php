@@ -77,10 +77,15 @@ class CardController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            if(!empty($model->image)){
-				$image = CardImageHelper();
+            $upload_img = UploadedFile::getInstance($model, 'image');
+			if(!empty($upload_img)){
+				$image = new CardImageHelper();
+				if($old_img){
+					$image->delete($old_img);
+				}
 				$image->image = UploadedFile::getInstance($model, 'image');
-				$image->upload();
+				$model->image = $image->upload($model->id);
+				$model->save();
 			}
 			$elasticModel = new CardElastic();
 
@@ -88,6 +93,7 @@ class CardController extends Controller
                 'id' => $model->id,
                 'title' => $model->title,
                 'description' => $model->description,
+				'image' => $model->image,
                 'views' => 0,
             ];
             $elasticModel->primaryKey = $model->id;
@@ -117,8 +123,6 @@ class CardController extends Controller
 
             
 			$upload_img = UploadedFile::getInstance($model, 'image');
-			//print_r($upload_img);
-			//die();
 			if(!empty($upload_img)){
 				$image = new CardImageHelper();
 				if($old_img){
@@ -136,8 +140,9 @@ class CardController extends Controller
             $elasticModel->attributes = [
                 'title' => $model->title,
                 'description' => $model->description,
-				'image' =>$model->image,
+				'image' => $model->image,
             ];
+			
             $elasticModel->save();
 
             return $this->redirect(['view', 'id' => $model->id]);
@@ -157,9 +162,17 @@ class CardController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
         $this->findElasticModel($id)->delete();
-
+		$db_model = $this->findModel($id);
+		$del_img = $db_model->image;
+		if($del_img){
+			$image = new CardImageHelper();
+			$image->delete($del_img);
+		}
+		
+		$db_model->delete();
+        
+		
         return $this->redirect(['index']);
     }
 
